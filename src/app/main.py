@@ -1,5 +1,10 @@
 from fastapi import FastAPI
 from app.routes import auth
+from routes import auth
+
+app = FastAPI()
+
+app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 
 app = FastAPI(
     title="My Backend API",
@@ -13,3 +18,5 @@ app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the backend API!"}
+
+

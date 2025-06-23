@@ -1,6 +1,9 @@
 from fastapi import FastAPI
-from app.routes import auth
 from routes import auth
+from database import Base, engine
+from models import user  # 유저 모델을 등록하기 위해 필요함
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 

@@ -1,0 +1,20 @@
+# Python 관련
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.db
+
+# FastAPI / Python 관련 환경
+.env
+*.log
+
+# Node.js 관련
+node_modules/
+package-lock.json
+
+# OS & 에디터 관련
+.DS_Store
+.vscode/
+.idea/
+*.swp
+

@@ -1,10 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
 from datetime import timedelta
-
-from schemas.auth import SignupRequest, LoginRequest, TokenResponse
-from models.user import User
-from core.security import verify_password, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
+from ..schemas.auth import SignupRequest, LoginRequest, TokenResponse
+from ..models.user import User
+from ..core.security import verify_password, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
 from database import get_db  # SQLAlchemy 세션 생성 함수
 
 router = APIRouter()

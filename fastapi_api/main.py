@@ -27,6 +27,7 @@ app.add_middleware(
 # 라우터 등록
 app.include_router(ping.router)                          # 건강 체크용 엔드포인트
 app.include_router(auth.router, tags=["Authentication"]) # ✅ prefix 제거
+app.include_router(auth.router, prefix="/auth") 
 
 # 기본 루트
 @app.get("/")

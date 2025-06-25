@@ -3,7 +3,13 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from datetime import timedelta
 
-from ..schemas.auth import SignupRequest, LoginRequest, TokenResponse
+from ..schemas.auth import (
+    SignupRequest,
+    LoginRequest,
+    TokenResponse,
+    PasswordVerifyRequest,  # ✅ 비밀번호 확인용 schema
+    UserUpdateRequest, 
+)
 from ..models.user import User
 from ..core.security import (
     verify_password,
@@ -95,3 +101,41 @@ def get_my_info(current_user: User = Depends(get_current_user)):
         "email": current_user.email,
         "birth_date": current_user.birth_date,
     }
+
+
+@router.post("/verify-password")
+def verify_password_route(
+    request: PasswordVerifyRequest,
+    current_user: User = Depends(get_current_user)
+):
+    if not verify_password(request.password, current_user.hashed_password):
+        raise HTTPException(status_code=401, detail="비밀번호가 올바르지 않습니다.")
+    return {"message": "비밀번호 확인 완료"}
+
+
+@router.patch("/users/me")
+def update_my_info(
+    payload: UserUpdateRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    if payload.nickname:
+        current_user.nickname = payload.nickname
+    if payload.email:
+        current_user.email = payload.email
+    if payload.birth_date:
+        current_user.birth_date = payload.birth_date
+    if payload.password:
+        hashed = get_password_hash(payload.password)
+        current_user.hashed_password = hashed
+
+    try:
+        db.commit()
+        db.refresh(current_user)
+    except Exception as e:
+        db.rollback()
+        print("❌ 수정 중 예외 발생:", str(e))
+        raise HTTPException(status_code=500, detail="정보 수정 중 오류가 발생했습니다.")
+
+    return {"message": "정보 수정 완료"}
+

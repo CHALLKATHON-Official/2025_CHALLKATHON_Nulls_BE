@@ -13,6 +13,8 @@ from ..core.security import (
 )
 from database import get_db
 
+from app.auth_utils import get_current_user
+
 router = APIRouter()
 
 @router.post("/login", response_model=TokenResponse)
@@ -75,3 +77,11 @@ def signup(request: SignupRequest, db: Session = Depends(get_db)):
         db.rollback()
         print("🔥 예외 발생:", str(e))
         raise HTTPException(status_code=500, detail="서버 내부 오류입니다.")
+    
+@router.get("/me")
+def get_my_info(current_user: User = Depends(get_current_user)):
+    return {
+        "username": current_user.username,
+        "email": current_user.email,
+        "birth_date": current_user.birth_date,
+    }

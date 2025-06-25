@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  },
+  "scripts": {
+  "dev:node": "nodemon index.js",
+  "dev:python": "cd ../fastapi_api && PYTHONPATH=.. uvicorn main:app --reload",
+  "dev": "concurrently \"npm run dev:node\" \"npm run dev:python\""
+}
+  
+}

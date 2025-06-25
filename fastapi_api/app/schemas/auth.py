@@ -15,6 +15,7 @@ class SignupRequest(BaseModel):
     password: str
     password_confirm: str
     birth_date: date
+    nickname: str   
 
     @validator("password_confirm")
     def passwords_match(cls, v, values):

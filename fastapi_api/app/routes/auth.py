@@ -2,7 +2,6 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from datetime import timedelta
-
 from ..schemas.auth import SignupRequest, LoginRequest, TokenResponse
 from ..models.user import User
 from ..core.security import (
@@ -10,14 +9,16 @@ from ..core.security import (
     get_password_hash,
     create_access_token,
     ACCESS_TOKEN_EXPIRE_MINUTES,
+    get_current_user,  # ✅ 로그인된 유저 정보를 가져오는 함수
 )
 from database import get_db
 
 router = APIRouter()
 
+
 @router.post("/login", response_model=TokenResponse)
 def login(request: LoginRequest, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == request.username).first()  # ✅ 수정됨
+    user = db.query(User).filter(User.username == request.username).first()
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -37,6 +38,7 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
 
     return TokenResponse(access_token=access_token)
 
+
 @router.post("/users")
 def signup(request: SignupRequest, db: Session = Depends(get_db)):
     try:
@@ -44,13 +46,15 @@ def signup(request: SignupRequest, db: Session = Depends(get_db)):
 
         existing_email = db.query(User).filter(User.email == request.email).first()
         if existing_email:
-            print("⚠️ 중복된 이메일")
             raise HTTPException(status_code=400, detail="이미 가입된 이메일입니다.")
 
         existing_username = db.query(User).filter(User.username == request.username).first()
         if existing_username:
-            print("⚠️ 중복된 아이디")
             raise HTTPException(status_code=400, detail="이미 사용 중인 아이디입니다.")
+
+        existing_nickname = db.query(User).filter(User.nickname == request.nickname).first()
+        if existing_nickname:
+            raise HTTPException(status_code=400, detail="이미 사용 중인 별명입니다.")
 
         hashed_password = get_password_hash(request.password)
 
@@ -58,7 +62,8 @@ def signup(request: SignupRequest, db: Session = Depends(get_db)):
             username=request.username,
             email=request.email,
             hashed_password=hashed_password,
-            birth_date=request.birth_date
+            birth_date=request.birth_date,
+            nickname=request.nickname,
         )
 
         db.add(new_user)
@@ -69,9 +74,25 @@ def signup(request: SignupRequest, db: Session = Depends(get_db)):
 
     except IntegrityError as ie:
         db.rollback()
-        print("❌ DB 제약조건 오류:", str(ie))
         raise HTTPException(status_code=400, detail="중복된 필드로 인해 저장에 실패했습니다.")
     except Exception as e:
         db.rollback()
-        print("🔥 예외 발생:", str(e))
         raise HTTPException(status_code=500, detail="서버 내부 오류입니다.")
+
+
+@router.get("/users/check-nickname")
+def check_nickname(nickname: str, db: Session = Depends(get_db)):
+    exists = db.query(User).filter(User.nickname == nickname).first() is not None
+    return {"exists": exists}
+
+
+# ✅ 로그인된 사용자 정보 가져오기
+@router.get("/me")
+def read_current_user(current_user: User = Depends(get_current_user)):
+    return {
+        "id": current_user.id,
+        "username": current_user.username,
+        "nickname": current_user.nickname,
+        "email": current_user.email,
+        "birth_date": current_user.birth_date,
+    }

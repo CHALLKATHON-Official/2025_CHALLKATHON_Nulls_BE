@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 # 데이터베이스 URL 설정 (예: SQLite 사용 시)
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"  # 실제 프로젝트에 맞게 변경
+SQLALCHEMY_DATABASE_URL = "sqlite:///./user.db"  # 실제 프로젝트에 맞게 변경
 
 # SQLite는 여러 스레드에서 접근할 때 다음 설정이 필요함
 engine = create_engine(

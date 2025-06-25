@@ -1,16 +1,14 @@
-from pydantic import BaseModel, EmailStr
 from pydantic import BaseModel, EmailStr, validator
 from datetime import date
 
 class LoginRequest(BaseModel):
-    email: EmailStr
+    username: str  # ✅ 프론트에서 아이디 입력 받도록 수정됨
     password: str
 
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
 
-#회원가입
 class SignupRequest(BaseModel):
     username: str
     email: EmailStr

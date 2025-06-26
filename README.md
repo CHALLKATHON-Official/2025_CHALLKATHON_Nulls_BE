@@ -34,8 +34,29 @@ Null_s 팀
 
 ---
 파일 구조
-<pre><code>2025_CHALLKATHON_Nulls_BE/├── .gitignore├── README.md├── database.py├── main.py├── requirements.txt├── user.db├── fastapi_api/│   └── app/│       ├── __init__.py│       ├── core/│       │   └── security.py│       ├── models/│       │   └── user.py│       ├── routes/│       │   ├── auth.py│       │   └── ping.py│       └── schemas/│           ├── auth.py│           └── token.py├── node_api/│   ├── app.js│   ├── package.json│   ├── package-lock.json│   └── routes/│       └── life.js</code></pre>
----
+루트 디렉터리 (2025_CHALLKATHON_Nulls_BE/)
+- .gitignore — Git 추적 제외 설정
+- README.md — 프로젝트 설명 문서
+- database.py — SQLite 연결 및 테이블 초기화
+- main.py — FastAPI 앱 실행 진입점
+- requirements.txt — Python 의존성 목록
+- user.db — SQLite 사용자 DB 파일 (개발용)
+
+fastapi_api/ — 🐍 Python 기반 메인 백엔드
+- app/__init__.py — FastAPI 앱 초기화
+- app/core/security.py — JWT 발급, 비밀번호 해싱 등 보안 유틸리티
+- app/models/user.py — 사용자 데이터베이스 모델
+- app/routes/auth.py — 로그인 및 회원가입 라우트
+- app/routes/ping.py — 서버 헬스 체크용 엔드포인트
+- app/schemas/auth.py — 로그인 요청/응답용 Pydantic 스키마
+- app/schemas/token.py — JWT 토큰 구조 정의
+
+node_api/ — 🌐 Node.js 기반 퍼센트 계산 API
+- app.js — Express 진입점
+- routes/life.js — 생년월일 기반 인생 퍼센트 계산 API
+- package.json, package-lock.json — Node 의존성 및 버전 정보
+
+
 ## 🔧 기능별 소개
 
 ---

@@ -19,13 +19,14 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",           # 개발용
-        "https://nulls.netlify.app"       # Netlify 배포 프론트 주소
+        "http://localhost:5173",                # ✅ 로컬 프론트
+        "https://lifec1ock.netlify.app"        # ✅ 배포 프론트
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # 라우터 등록
 app.include_router(ping.router)  #체크포인트

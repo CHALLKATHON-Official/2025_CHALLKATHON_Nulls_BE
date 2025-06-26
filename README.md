@@ -34,36 +34,8 @@ Null_s 팀
 
 ---
 
-## 📁 파일 구조
-
-2025_CHALLKATHON_Nulls_BE/
-├── .gitignore # Git에서 추적 제외할 파일 목록
-├── README.md # 프로젝트 설명 문서
-├── database.py # SQLite 데이터베이스 연결 및 초기화 스크립트
-├── main.py # FastAPI 앱 실행 진입점
-├── requirements.txt # Python 라이브러리 의존성 목록
-├── user.db # SQLite 사용자 데이터베이스 파일
-
-├── fastapi_api/ # Python 기반 메인 백엔드 디렉터리
-│ └── app/
-│ ├── init.py # 패키지 초기화
-│ ├── core/ # 보안, 인증 등 핵심 유틸리티
-│ │ └── security.py # JWT 토큰 처리 및 비밀번호 해싱 로직
-│ ├── models/ # 데이터베이스 모델 정의
-│ │ └── user.py # 사용자(User) 모델 클래스
-│ ├── routes/ # REST API 라우트 정의
-│ │ ├── auth.py # 로그인 및 사용자 인증 라우트
-│ │ └── ping.py # 서버 상태 확인을 위한 ping 라우트
-│ └── schemas/ # 요청/응답 검증용 Pydantic 스키마
-│ ├── auth.py # 로그인 관련 요청/응답 구조 정의
-│ └── token.py # JWT 관련 토큰 구조 정의
-
-├── node_api/ # Node.js 기반 보조 API 디렉터리
-│ ├── app.js # Express 서버 진입점
-│ ├── package.json # Node 프로젝트 설정 및 의존성
-│ ├── package-lock.json # 정확한 패키지 버전 기록
-│ └── routes/
-│ └── life.js # 생일 기반 인생 퍼센트 계산 API
+📁 파일구조 (2025_CHALLKATHON_Nulls_BE/)
+<pre><code>2025_CHALLKATHON_Nulls_BE/├── .gitignore               # Git 추적 제외 설정├── README.md                # 프로젝트 설명 문서├── database.py              # SQLite 연결 및 초기화 스크립트├── main.py                  # FastAPI 실행 진입점├── requirements.txt         # Python 의존성 정의├── user.db                  # SQLite 사용자 DB 파일├── fastapi_api/             # 🐍 FastAPI 백엔드 모듈│   └── app/│       ├── __init__.py          # 패키지 초기화│       ├── core/│       │   └── security.py          # 비밀번호 해싱, JWT 처리│       ├── models/│       │   └── user.py              # 사용자 모델 클래스│       ├── routes/│       │   ├── auth.py              # 로그인/회원가입 API 라우트│       │   └── ping.py              # 서버 헬스 체크 라우트│       └── schemas/│           ├── auth.py              # 로그인 요청/응답 스키마│           └── token.py             # JWT 토큰 구조 정의├── node_api/                # 🌐 Node.js 기반 부가 API│   ├── app.js                   # Express 서버 진입점│   ├── package.json             # Node 의존성 설정│   ├── package-lock.json        # 고정 버전 기록│   └── routes/│       └── life.js              # 생년월일 기반 인생 퍼센트 계산 API</code></pre>
 
 ---
 ## 🔧 기능별 소개

@@ -15,19 +15,21 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# ✅ CORS 설정 추가 (프론트엔드 요청 허용)
+# ✅ CORS 설정 추가 (개발용 + 배포용 프론트 도메인 허용)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # 프론트엔드 포트에 맞게 조정
+    allow_origins=[
+        "http://localhost:5173",           # 개발용
+        "https://nulls.netlify.app"       # Netlify 배포 프론트 주소
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # 라우터 등록
-app.include_router(ping.router)                          # 건강 체크용 엔드포인트
-app.include_router(auth.router, tags=["Authentication"]) # ✅ prefix 제거
-app.include_router(auth.router, prefix="/auth") 
+app.include_router(ping.router)  #체크포인트
+app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 
 # 기본 루트
 @app.get("/")

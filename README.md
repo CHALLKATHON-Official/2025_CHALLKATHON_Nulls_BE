@@ -34,35 +34,7 @@ Null_s 팀
 
 ---
 파일 구조
-📁 2025_CHALLKATHON_Nulls_BE/
-├── .gitignore
-├── README.md
-├── database.py
-├── main.py
-├── requirements.txt
-├── user.db
-
-├── fastapi_api/
-│   └── app/
-│       ├── __init__.py
-│       ├── core/
-│       │   └── security.py
-│       ├── models/
-│       │   └── user.py
-│       ├── routes/
-│       │   ├── auth.py
-│       │   └── ping.py
-│       └── schemas/
-│           ├── auth.py
-│           └── token.py
-
-├── node_api/
-│   ├── app.js
-│   ├── package.json
-│   ├── package-lock.json
-│   └── routes/
-│       └── life.js
-
+<pre><code>2025_CHALLKATHON_Nulls_BE/├── .gitignore├── README.md├── database.py├── main.py├── requirements.txt├── user.db├── fastapi_api/│   └── app/│       ├── __init__.py│       ├── core/│       │   └── security.py│       ├── models/│       │   └── user.py│       ├── routes/│       │   ├── auth.py│       │   └── ping.py│       └── schemas/│           ├── auth.py│           └── token.py├── node_api/│   ├── app.js│   ├── package.json│   ├── package-lock.json│   └── routes/│       └── life.js</code></pre>
 ---
 ## 🔧 기능별 소개
 

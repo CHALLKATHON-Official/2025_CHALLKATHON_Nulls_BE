@@ -33,7 +33,8 @@ Null_s 팀
   - `dotenv` : 환경 변수 관리
 
 ---
-파일 구조
+## 📁파일 구조
+
 루트 디렉터리 (2025_CHALLKATHON_Nulls_BE/)
 - .gitignore — Git 추적 제외 설정
 - README.md — 프로젝트 설명 문서
